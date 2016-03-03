@@ -6,7 +6,7 @@
 /*   By: bndao <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/05 18:27:21 by bndao             #+#    #+#             */
-/*   Updated: 2016/03/03 08:27:37 by bndao            ###   ########.fr       */
+/*   Updated: 2016/03/03 10:15:09 by bndao            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,12 @@ static char			**checking(char *av_1)
 	return (ok);
 }
 
+static void			usage(void)
+{
+	ft_putendl("usage : ./fillit map2solve");
+	exit(1);
+}
+
 int					main(int ac, char **av)
 {
 	int			i;
@@ -63,7 +69,7 @@ int					main(int ac, char **av)
 	if (!(mylist = (t_mylist *)malloc(sizeof(t_mylist))))
 		return (0);
 	if (ac != 2)
-		ft_error();
+		usage();
 	ok = checking(av[1]);
 	start = t_new(m_tetri(ok[0]), 'A');
 	mylist->begin = start;
