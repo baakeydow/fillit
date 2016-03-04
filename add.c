@@ -6,7 +6,7 @@
 /*   By: bndao <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/15 09:40:54 by bndao             #+#    #+#             */
-/*   Updated: 2016/03/03 09:58:42 by bndao            ###   ########.fr       */
+/*   Updated: 2016/03/04 13:02:20 by bndao            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,8 @@ void					ft_call(t_tetri *l, char *av1, t_mylist *b)
 			i = ft_count_splits(get_map(av1));
 			l = b->begin;
 		}
-		l = swap_loop(l, b);
+		if (ft_count_splits(get_map(av1)) == 2)
+			l = swap_loop(l, b);
 		i--;
 	}
 	n = 0;
