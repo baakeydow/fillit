@@ -62,8 +62,6 @@ char				*mv_up(char *t)
 
 int					set(char **tetri)
 {
-	if (tetri[0][0] == '.' && tetri[0][1] == '.')
-		return (2);
 	if (tetri[0][0] == '.')
 		return (1);
 	return (0);
