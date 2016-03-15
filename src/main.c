@@ -6,11 +6,11 @@
 /*   By: bndao <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/05 18:27:21 by bndao             #+#    #+#             */
-/*   Updated: 2016/03/03 10:15:09 by bndao            ###   ########.fr       */
+/*   Updated: 2016/03/08 03:21:28 by bndao            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "headers/included.h"
+#include <included.h>
 
 static char			**allocate(char **tetri, char *map)
 {
@@ -66,8 +66,8 @@ int					main(int ac, char **av)
 	t_mylist	*mylist;
 
 	i = 1;
-	if (!(mylist = (t_mylist *)malloc(sizeof(t_mylist))))
-		return (0);
+	if (!(mylist = (t_mylist *)malloc(sizeof(t_mylist) + 1)))
+		return (-1);
 	if (ac != 2)
 		usage();
 	ok = checking(av[1]);
@@ -81,6 +81,6 @@ int					main(int ac, char **av)
 	start = mylist->begin;
 	letters_in(start);
 	start = mylist->begin;
-	ft_call(start, av[1], mylist);
+	ft_call(start);
 	return (0);
 }

@@ -6,73 +6,46 @@
 /*   By: bndao <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/17 00:35:32 by bndao             #+#    #+#             */
-/*   Updated: 2016/03/03 09:59:56 by bndao            ###   ########.fr       */
+/*   Updated: 2016/03/13 23:18:24 by bndao            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "headers/included.h"
-
-static int			check_place(char **reso, t_tetri *s, t_point *p)
-{
-	int			i;
-	t_point		**scheme;
-
-	i = 0;
-	if (s == NULL)
-		return (0);
-	scheme = get_point(s);
-	while (i < 4)
-	{
-		if (p->c + scheme[i]->c - s->offset >= (int)ft_strlen(reso[0])
-				|| p->l + scheme[i]->l >= (int)ft_strlen(reso[0]))
-			return (0);
-		if (reso[p->l + scheme[i]->l][p->c + scheme[i]->c - s->offset] != '.')
-			return (0);
-		i++;
-	}
-	return (1);
-}
+#include <included.h>
 
 static void			write_tetri(char **reso, t_tetri *s, t_point *p)
 {
 	int			i;
-	t_point		**scheme;
+	t_point		scheme[4];
 
-	scheme = get_point(s);
+	get_point(s, scheme);
 	i = 0;
 	while (i < 4)
 	{
-		reso[p->l + scheme[i]->l][p->c + scheme[i]->c - s->offset] = s->letter;
+		reso[p->l + scheme[i].l][p->c + scheme[i].c - s->offset] = s->letter;
 		i++;
 	}
 }
 
-int					tetri_in(char **reso, t_tetri *s, int x, int y)
+int					tetri_in(char **reso, t_tetri *s, int y, int x)
 {
-	t_point		*point_r;
+	t_point		p;
+	t_point		scheme[4];
+	int			i;
 
-	if ((point_r = (t_point *)malloc(sizeof(t_point))) != NULL)
+	get_point(s, scheme);
+	i = -1;
+	p.l = y;
+	p.c = x;
+	while (++i < 4)
 	{
-		point_r->l = y;
-		while (reso[point_r->l])
-		{
-			point_r->c = x;
-			while (reso[point_r->l][point_r->c])
-			{
-				if (reso[point_r->l][point_r->c] == '.')
-				{
-					if (check_place(reso, s, point_r) == 1)
-					{
-						write_tetri(reso, s, point_r);
-						return (1);
-					}
-				}
-				point_r->c++;
-			}
-			point_r->l++;
-		}
+		if (p.c + scheme[i].c - s->offset >= (int)ft_strlen(reso[0])
+				|| p.l + scheme[i].l >= (int)ft_strlen(reso[0]))
+			return (0);
+		if (reso[y + scheme[i].l][x + scheme[i].c - s->offset] != '.')
+			return (0);
 	}
-	return (0);
+	write_tetri(reso, s, &p);
+	return (1);
 }
 
 static void			ft_delete(char **tab, char chr)
@@ -107,10 +80,13 @@ short				ft_backtrack(t_tetri *l, char **tab)
 		x = 0;
 		while (tab[y][x])
 		{
-			if (tetri_in(tab, l, x, y) && !ft_backtrack(l->next, tab))
-				return (0);
-			ft_delete(tab, l->letter);
-			x++;
+			if (tetri_in(tab, l, y, x))
+			{
+				if (!ft_backtrack(l->next, tab))
+					return (0);
+				ft_delete(tab, l->letter);
+			}
+			++x;
 		}
 		++y;
 	}

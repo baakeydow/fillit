@@ -6,11 +6,11 @@
 /*   By: bndao <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/15 09:40:54 by bndao             #+#    #+#             */
-/*   Updated: 2016/03/04 13:02:20 by bndao            ###   ########.fr       */
+/*   Updated: 2016/03/08 04:18:38 by bndao            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "headers/included.h"
+#include <included.h>
 
 char					**make_map(int n)
 {
@@ -33,27 +33,15 @@ char					**make_map(int n)
 	return (map);
 }
 
-void					ft_call(t_tetri *l, char *av1, t_mylist *b)
+void					ft_call(t_tetri *l)
 {
 	char		**tab;
 	int			n;
-	int			i;
 
-	n = s_opti(get_map(av1));
-	tab = make_map(n - 1);
-	i = ft_count_splits(get_map(av1));
+	n = 2;
+	tab = make_map(n);
 	while (ft_backtrack(l, tab))
-	{
-		if (i == 1)
-		{
-			tab = make_map(n++);
-			i = ft_count_splits(get_map(av1));
-			l = b->begin;
-		}
-		if (ft_count_splits(get_map(av1)) == 2)
-			l = swap_loop(l, b);
-		i--;
-	}
+		tab = make_map(++n);
 	n = 0;
 	while (tab[n])
 		ft_putendl(tab[n++]);

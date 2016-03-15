@@ -6,11 +6,11 @@
 /*   By: bndao <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/11 11:11:14 by bndao             #+#    #+#             */
-/*   Updated: 2016/03/03 09:58:45 by bndao            ###   ########.fr       */
+/*   Updated: 2016/03/13 19:01:36 by bndao            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "headers/included.h"
+#include <included.h>
 
 char				*mv_left(char *t)
 {
@@ -62,6 +62,8 @@ char				*mv_up(char *t)
 
 int					set(char **tetri)
 {
+	if (tetri[0][0] == '.' && tetri[0][1] == '.')
+		return (2);
 	if (tetri[0][0] == '.')
 		return (1);
 	return (0);

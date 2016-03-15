@@ -6,12 +6,13 @@
 /*   By: bndao <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/05 18:41:06 by bndao             #+#    #+#             */
-/*   Updated: 2016/03/03 08:27:34 by bndao            ###   ########.fr       */
+/*   Updated: 2016/03/13 23:15:35 by bndao            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef FT_INCLUDED_H
 # define FT_INCLUDED_H
+
 # define BUFFSIZE 10
 # define SPLITSIZE 21
 # include "libft.h"
@@ -54,9 +55,9 @@ void					push_back(t_tetri *b_list, t_tetri *list);
 int						s_opti(char *map);
 char					**make_map(int n);
 int						tetri_in(char **reso, t_tetri *s, int x, int y);
-t_point					**get_point(t_tetri *s);
+void					get_point(t_tetri *s, t_point scheme[4]);
 short					ft_backtrack(t_tetri *s, char **tab);
-void					ft_call(t_tetri *l, char *av1, t_mylist *mylist);
+void					ft_call(t_tetri *l);
 int						check_d_line(char *s);
 int						set(char **tetri);
 void					swap_elem_data(t_tetri *el1, t_tetri *el2);
